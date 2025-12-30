@@ -5,6 +5,7 @@ screen = pygame.display.set_mode((screen_dim, screen_dim))
 clock = pygame.time.Clock()
 running = True
 dimensions = 500
+FPS = 1
 
 while running:
     for event in pygame.event.get():
@@ -24,6 +25,6 @@ while running:
 
     pygame.display.flip()
 
-    clock.tick(1)
+    clock.tick(FPS)
 
 pygame.quit()
