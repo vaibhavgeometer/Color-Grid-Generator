@@ -1,38 +1,36 @@
 import pygame
 import pygame.gfxdraw
 import random
+import sys
 import math
 
 pygame.init()
 
 SCREEN_DIM = 800
-SCREEN = pygame.display.set_mode((SCREEN_DIM, SCREEN_DIM))
-pygame.display.set_caption("Premium Triangle Color Grid")
-CLOCK = pygame.time.Clock()
+GRID_SIZE = 5
+TRIANGLE_HEIGHT = 80
+SIDE_LENGTH = TRIANGLE_HEIGHT / (math.sqrt(3) / 2)
 FPS = 1
-ROWS = 5
-TRIANGLE_Height = 80
-SIDE_LENGTH = TRIANGLE_Height / (math.sqrt(3) / 2)
 
-def get_vibrant_color():
-    return (random.randint(50, 255), random.randint(50, 255), random.randint(50, 255))
+screen = pygame.display.set_mode((SCREEN_DIM, SCREEN_DIM))
+pygame.display.set_caption("Color Grid Triangle")
+clock = pygame.time.Clock()
 
 running = True
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    SCREEN.fill((15, 15, 20))
+    screen.fill("black")
 
-    total_height = ROWS * TRIANGLE_Height
-    base_width = ROWS * SIDE_LENGTH
-    
+    total_height = GRID_SIZE * TRIANGLE_HEIGHT
     start_x = SCREEN_DIM // 2
     start_y = (SCREEN_DIM - total_height) // 2
 
-    for row in range(ROWS):
-        row_y = start_y + row * TRIANGLE_Height
+    for row in range(GRID_SIZE):
+        row_y = start_y + row * TRIANGLE_HEIGHT
         num_triangles = 2 * row + 1
         
         row_half_width = (row + 1) * SIDE_LENGTH / 2
@@ -47,21 +45,26 @@ while running:
             points = []
             if is_up:
                 p1 = (tri_x + SIDE_LENGTH / 2, tri_y)
-                p2 = (tri_x, tri_y + TRIANGLE_Height)
-                p3 = (tri_x + SIDE_LENGTH, tri_y + TRIANGLE_Height)
+                p2 = (tri_x, tri_y + TRIANGLE_HEIGHT)
+                p3 = (tri_x + SIDE_LENGTH, tri_y + TRIANGLE_HEIGHT)
                 points = [p1, p2, p3]
             else:
-                p1 = (tri_x + SIDE_LENGTH / 2, tri_y + TRIANGLE_Height)
+                p1 = (tri_x + SIDE_LENGTH / 2, tri_y + TRIANGLE_HEIGHT)
                 p2 = (tri_x, tri_y)
                 p3 = (tri_x + SIDE_LENGTH, tri_y)
                 points = [p1, p2, p3]
             
-            color = get_vibrant_color()
+            color = (
+                random.randint(0, 255),
+                random.randint(0, 255),
+                random.randint(0, 255)
+            )
             
-            pygame.gfxdraw.filled_polygon(SCREEN, points, color)
-            pygame.gfxdraw.aapolygon(SCREEN, points, color)
+            pygame.gfxdraw.filled_polygon(screen, points, color)
+            pygame.gfxdraw.aapolygon(screen, points, color)
 
     pygame.display.flip()
-    CLOCK.tick(FPS)
+    clock.tick(FPS)
 
 pygame.quit()
+sys.exit()

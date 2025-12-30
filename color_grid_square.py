@@ -4,7 +4,7 @@ import sys
 
 pygame.init()
 
-SCREEN_DIM = 700
+SCREEN_DIM = 800
 GRID_SIZE = 5
 CELL_SIZE = 100
 FPS = 1
