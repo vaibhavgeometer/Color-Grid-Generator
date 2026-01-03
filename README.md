@@ -47,7 +47,7 @@ Replace `color_grid_square.py` with any of the other filenames to see different 
 
 1. **Rendering**: The scripts use Pygame to draw shapes in a grid.
 2. **Color Selection**: Colors are generated randomly for each shape in every frame.
-3. **Audio Generation**: 
+3. **Audio Generation**:
    - The average Red, Green, and Blue values of all shapes in the current frame are calculated.
    - These averages are mapped to specific frequency ranges:
      - **Red**: Low frequencies (Bass)
