@@ -10,6 +10,7 @@ SCREEN_DIM = 800
 GRID_SIZE = 5
 CELL_SIZE = 100
 FPS = 5
+RGB_COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
 
 START_POS = (SCREEN_DIM - (GRID_SIZE * CELL_SIZE)) // 2
 
@@ -47,7 +48,7 @@ def generate_color_sound(colors, duration):
         mixed[-fade_len:] *= fade_out
 
     audio = (mixed * 32767).astype(np.int16)
-
+    
     # Ensure array matches mixer channels
     mixer_info = pygame.mixer.get_init()
     if mixer_info:
@@ -72,11 +73,7 @@ while running:
             x = START_POS + col * CELL_SIZE
             y = START_POS + row * CELL_SIZE
 
-            color = (
-                random.randint(0, 255),
-                random.randint(0, 255),
-                random.randint(0, 255)
-            )
+            color = random.choice(RGB_COLORS)
             colors_this_frame.append(color)
 
             pygame.draw.rect(screen, color, (x, y, CELL_SIZE, CELL_SIZE))
